@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Language {
+  code String  @id
+  name String
+  translations Translation[]
+  tourI18n     TourI18n[]
+  navI18n      NavigationI18n[]
+}
+
+model Text {
+  id       Int           @id @default(autoincrement())
+  key      String        @unique
+  context  String?
+  values   Translation[]
+}
+
+model Translation {
+  id       Int      @id @default(autoincrement())
+  text     Text     @relation(fields: [textId], references: [id], onDelete: Cascade)
+  textId   Int
+  lang     Language @relation(fields: [langCode], references: [code], onDelete: Cascade)
+  langCode String
+  value    String   @db.Text
+
+  @@unique([textId, langCode])
+}
+
+model Tour {
+  id         Int       @id
+  destination String?
+  duration    String?
+  price       Decimal? @db.Decimal(10,2)
+  type        String?
+  image       String?  @db.Text
+  i18n        TourI18n[]
+}
+
+model TourI18n {
+  tour      Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  tourId    Int
+  lang      Language @relation(fields: [langCode], references: [code], onDelete: Cascade)
+  langCode  String
+  title     String?
+  shortDescription String? @db.Text
+  fullDescription  String? @db.Text
+
+  @@id([tourId, langCode])
+}
+
+model Navigation {
+  id       Int    @id @default(autoincrement())
+  key      String @unique
+  path     String
+  position Int    @default(0)
+  isCta    Boolean @default(false)
+  i18n     NavigationI18n[]
+}
+
+model NavigationI18n {
+  navigation Navigation @relation(fields: [navId], references: [id], onDelete: Cascade)
+  navId      Int
+  lang       Language  @relation(fields: [langCode], references: [code], onDelete: Cascade)
+  langCode   String
+  label      String
+
+  @@id([navId, langCode])
+}
+
+model HeroSlide {
+  id       Int    @id @default(autoincrement())
+  image    String @db.Text
+  position Int    @default(0)
+}
+
+model TeamMember {
+  id        Int    @id @default(autoincrement())
+  name      String
+  role      String
+  bio       String @db.Text
+  image     String? @db.Text
+  position  Int    @default(0)
+  isActive  Boolean @default(true)
+}
+
+model CompanyValue {
+  id        Int    @id @default(autoincrement())
+  title     String
+  description String @db.Text
+  icon      String?
+  position  Int    @default(0)
+  isActive  Boolean @default(true)
+}
+
+model Faq {
+  id        Int    @id @default(autoincrement())
+  question  String @db.Text
+  answer    String @db.Text
+  position  Int    @default(0)
+  isActive  Boolean @default(true)
+}
+
+model FaqTopic {
+  id        Int    @id @default(autoincrement())
+  title     String
+  description String @db.Text
+  icon      String?
+  position  Int    @default(0)
+  isActive  Boolean @default(true)
+}
+
+
