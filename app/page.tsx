@@ -83,9 +83,7 @@ export default function Home() {
   const [ctaImageSrc, setCtaImageSrc] = useState(
     'https://readdy.ai/api/search-image?query=Maldives%20sunset%20beach&width=1920&height=600'
   );
-  const [heroTitle, setHeroTitle] = useState('Explore the Unforgettable Maldives');
-  const [heroSubtitle, setHeroSubtitle] = useState('Discover pristine islands, crystal waters, and thrilling water sports adventures');
-  const [heroCta, setHeroCta] = useState('Explore Tours');
+  // Hero texts are now handled by LanguageContext
   
   const heroRef = useRef<HTMLElement | null>(null);
   const ctaRef = useRef<HTMLElement | null>(null);
@@ -153,20 +151,7 @@ export default function Home() {
           if (images.length > 0) setHeroImages(images);
         }
 
-        // Load hero texts
-        const textsRes = await fetch('/api/texts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            keys: ['hero.title', 'hero.subtitle', 'hero.cta'] 
-          })
-        });
-        if (textsRes.ok) {
-          const data = await textsRes.json();
-          if (data['hero.title']) setHeroTitle(data['hero.title']);
-          if (data['hero.subtitle']) setHeroSubtitle(data['hero.subtitle']);
-          if (data['hero.cta']) setHeroCta(data['hero.cta']);
-        }
+        // Hero texts are now handled by LanguageContext
       } catch (error) {
         console.error('Error loading data:', error);
       }
@@ -233,20 +218,20 @@ export default function Home() {
             className="text-5xl md:text-7xl font-bold mb-6 font-serif"
             variants={fadeInUpVariants}
           >
-            {getText('hero.title', heroTitle)}
+            {getText('hero.title', 'Explore the Unforgettable Maldives')}
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl mb-8 text-gray-200"
             variants={fadeInUpVariants}
           >
-            {getText('hero.subtitle', heroSubtitle)}
+            {getText('hero.subtitle', 'Discover pristine islands, crystal waters, and thrilling water sports adventures')}
           </motion.p>
           <motion.div variants={fadeInUpVariants}>
             <Link
               href="/tours"
               className="inline-block bg-teal-600 hover:bg-teal-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              {getText('hero.cta', heroCta)}
+              {getText('hero.cta', 'Explore Tours')}
             </Link>
           </motion.div>
         </motion.div>

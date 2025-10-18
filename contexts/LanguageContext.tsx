@@ -55,7 +55,16 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
         'footer.company', 'footer.description', 'footer.quicklinks', 
         'footer.contact', 'footer.newsletter', 'footer.newsletter.desc', 
         'footer.newsletter.placeholder', 'footer.newsletter.button', 'footer.copyright',
-        // Add all your text keys here
+        // Home page keys
+        'hero.title', 'hero.subtitle', 'hero.cta',
+        'about.title', 'about.body',
+        'featured.title', 'featured.subtitle', 'featured.button',
+        'why.title', 'why.subtitle',
+        'why.expertise.title', 'why.expertise.desc',
+        'why.safety.title', 'why.safety.desc',
+        'why.service.title', 'why.service.desc',
+        'testimonials.title',
+        'cta.title', 'cta.subtitle', 'cta.button'
       ];
 
       const response = await fetch('/api/texts', {
