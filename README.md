@@ -77,7 +77,7 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 **VPS Details:**
 - IP: `5.223.51.245`
-- Domain: `timelesstours.oala.dev`
+- Domain: `thetimelesstours.com`
 - Node.js 20 (already installed)
 
 ### 1. Install Required Software
@@ -147,7 +147,7 @@ Add your production configuration:
 ```env
 DATABASE_URL="mysql://timeless_user:your_secure_password@localhost:3306/timeless_tours"
 NEXTAUTH_SECRET="your-production-secret-key"
-NEXTAUTH_URL="https://timelesstours.oala.dev"
+NEXTAUTH_URL="https://thetimelesstours.com"
 NODE_ENV="production"
 ```
 
@@ -208,13 +208,13 @@ pm2 startup
 
 Create Nginx configuration:
 ```bash
-sudo nano /etc/nginx/sites-available/timeless-tours
+sudo nano /etc/nginx/sites-available/timelesstoursnextjs
 ```
 
 ```nginx
 server {
     listen 80;
-    server_name timelesstours.oala.dev;
+    server_name thetimelesstours.com;
 
     # Redirect HTTP to HTTPS
     return 301 https://$server_name$request_uri;
@@ -222,11 +222,11 @@ server {
 
 server {
     listen 443 ssl http2;
-    server_name timelesstours.oala.dev;
+    server_name thetimelesstours.com;
 
     # SSL Configuration (replace with your SSL certificate paths)
-    ssl_certificate /etc/ssl/certs/timelesstours.oala.dev.crt;
-    ssl_certificate_key /etc/ssl/private/timelesstours.oala.dev.key;
+    ssl_certificate /etc/ssl/certs/thetimelesstours.com.crt;
+    ssl_certificate_key /etc/ssl/private/thetimelesstours.com.key;
     
     # SSL Security Settings
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -287,7 +287,7 @@ server {
 Enable the site:
 ```bash
 # Enable the site
-sudo ln -s /etc/nginx/sites-available/timeless-tours /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/timelesstoursnextjs /etc/nginx/sites-enabled/
 
 # Test Nginx configuration
 sudo nginx -t
@@ -303,7 +303,7 @@ sudo systemctl restart nginx
 sudo apt install certbot python3-certbot-nginx -y
 
 # Obtain SSL certificate
-sudo certbot --nginx -d timelesstours.oala.dev
+sudo certbot --nginx -d thetimelesstours.com
 
 # Test automatic renewal
 sudo certbot renew --dry-run
