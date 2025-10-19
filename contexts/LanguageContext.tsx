@@ -64,7 +64,16 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
         'why.safety.title', 'why.safety.desc',
         'why.service.title', 'why.service.desc',
         'testimonials.title',
-        'cta.title', 'cta.subtitle', 'cta.button'
+        'cta.title', 'cta.subtitle', 'cta.button',
+        // About page keys
+        'about.hero.title', 'about.hero.subtitle',
+        'about.story.title', 'about.story.para1', 'about.story.para2',
+        'about.team.title', 'about.team.subtitle',
+        'about.values.title', 'about.values.subtitle',
+        'about.promise.title',
+        'about.promise.sustainable.title', 'about.promise.sustainable.desc',
+        'about.promise.comfort.title', 'about.promise.comfort.desc',
+        'about.promise.experiences.title', 'about.promise.experiences.desc'
       ];
 
       const response = await fetch('/api/texts', {

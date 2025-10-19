@@ -7,6 +7,7 @@ import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
 import Carousel from '@/components/base/Carousel';
 import { testimonials } from '@/mocks/tours';
+import Image from 'next/image';
 
 export default function Testimonials() {
   // Testimonials page texts state
@@ -108,9 +109,11 @@ export default function Testimonials() {
             {testimonials.map((testimonial) => (
               <div key={testimonial.id} className="bg-stone-50 rounded-lg p-12 mx-4">
                 <div className="text-center">
-                  <img
+                  <Image
                     src={testimonial.image}
                     alt={testimonial.name}
+                    width={96}
+                    height={96}
                     className="w-24 h-24 rounded-full object-cover object-top mx-auto mb-6"
                   />
                   <div className="flex justify-center mb-6">
@@ -146,9 +149,11 @@ export default function Testimonials() {
             {testimonials.map((testimonial) => (
               <div key={testimonial.id} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
                 <div className="flex items-center mb-4">
-                  <img
+                  <Image
                     src={testimonial.image}
                     alt={testimonial.name}
+                    width={48}
+                    height={48}
                     className="w-12 h-12 rounded-full object-cover object-top mr-4"
                   />
                   <div>
@@ -168,9 +173,11 @@ export default function Testimonials() {
             {/* Additional testimonials */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
               <div className="flex items-center mb-4">
-                <img
+                <Image
                   src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20happy%20male%20traveler%20with%20genuine%20smile%2C%20outdoor%20natural%20lighting%2C%20travel%20portrait%20style%2C%20satisfied%20customer%20expression&width=150&height=150&seq=testimonial6&orientation=squarish"
                   alt="James Wilson"
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full object-cover object-top mr-4"
                 />
                 <div>
@@ -188,9 +195,11 @@ export default function Testimonials() {
 
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
               <div className="flex items-center mb-4">
-                <img
+                <Image
                   src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20happy%20female%20traveler%20with%20warm%20smile%2C%20natural%20lighting%2C%20travel%20photography%20style%2C%20delighted%20customer%20expression&width=150&height=150&seq=testimonial7&orientation=squarish"
                   alt="Maria Santos"
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full object-cover object-top mr-4"
                 />
                 <div>
@@ -208,9 +217,11 @@ export default function Testimonials() {
 
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
               <div className="flex items-center mb-4">
-                <img
+                <Image
                   src="https://readdy.ai/api/search-image?query=Professional%20headshot%20of%20happy%20elderly%20male%20traveler%20with%20kind%20smile%2C%20natural%20lighting%2C%20travel%20portrait%20style%2C%20satisfied%20senior%20customer&width=150&height=150&seq=testimonial8&orientation=squarish"
                   alt="Robert Taylor"
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full object-cover object-top mr-4"
                 />
                 <div>

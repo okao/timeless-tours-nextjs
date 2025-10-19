@@ -4,8 +4,12 @@
 import { useEffect, useRef, useState } from 'react';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
+import Image from 'next/image';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function About() {
+  const { getText } = useLanguage();
+
   // Page transition effect (same pattern as tours page)
   useEffect(() => {
     document.body.classList.add('page-transition');
@@ -17,15 +21,7 @@ export default function About() {
 
     return () => clearTimeout(timer);
   }, []);
-
-  // About page texts with fallback values
-  const [aboutHeroTitle, setAboutHeroTitle] = useState('About Timeless Tours');
-  const [aboutHeroSubtitle, setAboutHeroSubtitle] = useState('Your gateway to authentic Maldivian experiences');
-  const [aboutStoryTitle, setAboutStoryTitle] = useState('Our Story');
-  const [aboutStoryPara1, setAboutStoryPara1] = useState("Founded in the heart of Malé, Timeless Tours Maldives was born from a passion for sharing the untouched beauty and rich culture of our island nation. We believe that travel should be more than just visiting places – it should be about creating connections, understanding cultures, and making memories that last a lifetime.");
-  const [aboutStoryPara2, setAboutStoryPara2] = useState('Our team of local experts brings decades of combined experience in hospitality and marine adventures, ensuring every guest experiences the authentic spirit of the Maldives while enjoying the highest standards of safety and comfort.');
-  const [aboutTeamTitle, setAboutTeamTitle] = useState('Meet Our Team');
-  const [aboutTeamSubtitle, setAboutTeamSubtitle] = useState('Passionate locals dedicated to sharing the beauty of the Maldives');
+  // Team members and values state
   const [teamMembers, setTeamMembers] = useState<Array<{
     id: number;
     name: string;
@@ -34,8 +30,6 @@ export default function About() {
     image: string;
     position: number;
   }>>([]);
-  const [aboutValuesTitle, setAboutValuesTitle] = useState('Our Values');
-  const [aboutValuesSubtitle, setAboutValuesSubtitle] = useState('The principles that guide everything we do');
   const [values, setValues] = useState<Array<{
     id: number;
     title: string;
@@ -43,60 +37,7 @@ export default function About() {
     icon: string;
     position: number;
   }>>([]);
-  const [aboutPromiseTitle, setAboutPromiseTitle] = useState('Our Promise to You');
-  const [aboutPromiseSustainableTitle, setAboutPromiseSustainableTitle] = useState('Sustainable Tourism');
-  const [aboutPromiseSustainableDesc, setAboutPromiseSustainableDesc] = useState("We're committed to responsible tourism that benefits local communities and preserves our pristine marine environment.");
-  const [aboutPromiseComfortTitle, setAboutPromiseComfortTitle] = useState('Comfort & Luxury');
-  const [aboutPromiseComfortDesc, setAboutPromiseComfortDesc] = useState('Every detail is carefully planned to ensure your comfort while maintaining the authentic spirit of the Maldives.');
-  const [aboutPromiseExperiencesTitle, setAboutPromiseExperiencesTitle] = useState('Unforgettable Experiences');
-  const [aboutPromiseExperiencesDesc, setAboutPromiseExperiencesDesc] = useState('We create moments that will stay with you long after you leave our beautiful islands.');
 
-  useEffect(() => {
-    let mounted = true;
-    async function loadAboutTexts() {
-      try {
-        const res = await fetch('/api/texts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            keys: [
-              'about.hero.title', 'about.hero.subtitle',
-              'about.story.title', 'about.story.para1', 'about.story.para2',
-              'about.team.title', 'about.team.subtitle',
-              'about.values.title', 'about.values.subtitle',
-              'about.promise.title',
-              'about.promise.sustainable.title', 'about.promise.sustainable.desc',
-              'about.promise.comfort.title', 'about.promise.comfort.desc',
-              'about.promise.experiences.title', 'about.promise.experiences.desc'
-            ]
-          })
-        });
-        if (!res.ok) throw new Error('Failed to load about texts');
-        const data = (await res.json()) as Record<string, string>;
-        if (!mounted) return;
-        if (data['about.hero.title']) setAboutHeroTitle(data['about.hero.title']);
-        if (data['about.hero.subtitle']) setAboutHeroSubtitle(data['about.hero.subtitle']);
-        if (data['about.story.title']) setAboutStoryTitle(data['about.story.title']);
-        if (data['about.story.para1']) setAboutStoryPara1(data['about.story.para1']);
-        if (data['about.story.para2']) setAboutStoryPara2(data['about.story.para2']);
-        if (data['about.team.title']) setAboutTeamTitle(data['about.team.title']);
-        if (data['about.team.subtitle']) setAboutTeamSubtitle(data['about.team.subtitle']);
-        if (data['about.values.title']) setAboutValuesTitle(data['about.values.title']);
-        if (data['about.values.subtitle']) setAboutValuesSubtitle(data['about.values.subtitle']);
-        if (data['about.promise.title']) setAboutPromiseTitle(data['about.promise.title']);
-        if (data['about.promise.sustainable.title']) setAboutPromiseSustainableTitle(data['about.promise.sustainable.title']);
-        if (data['about.promise.sustainable.desc']) setAboutPromiseSustainableDesc(data['about.promise.sustainable.desc']);
-        if (data['about.promise.comfort.title']) setAboutPromiseComfortTitle(data['about.promise.comfort.title']);
-        if (data['about.promise.comfort.desc']) setAboutPromiseComfortDesc(data['about.promise.comfort.desc']);
-        if (data['about.promise.experiences.title']) setAboutPromiseExperiencesTitle(data['about.promise.experiences.title']);
-        if (data['about.promise.experiences.desc']) setAboutPromiseExperiencesDesc(data['about.promise.experiences.desc']);
-      } catch {
-        // keep fallback
-      }
-    }
-    loadAboutTexts();
-    return () => { mounted = false };
-  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -192,9 +133,9 @@ export default function About() {
       >
         <div className="max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-            {aboutHeroTitle}
+            {getText('about.hero.title', 'About Timeless Tours')}
           </h1>
-          <p className="text-xl text-gray-200">{aboutHeroSubtitle}</p>
+          <p className="text-xl text-gray-200">{getText('about.hero.subtitle', 'Your gateway to authentic Maldivian experiences')}</p>
         </div>
       </section>
 
@@ -204,15 +145,17 @@ export default function About() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="animate-slide-in-left">
               <h2 className="text-4xl font-bold text-slate-800 mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
-                {aboutStoryTitle}
+                {getText('about.story.title', 'Our Story')}
               </h2>
-              <p className="text-lg text-slate-600 mb-6 leading-relaxed">{aboutStoryPara1}</p>
-              <p className="text-lg text-slate-600 leading-relaxed">{aboutStoryPara2}</p>
+              <p className="text-lg text-slate-600 mb-6 leading-relaxed">{getText('about.story.para1', "Founded in the heart of Malé, Timeless Tours Maldives was born from a passion for sharing the untouched beauty and rich culture of our island nation. We believe that travel should be more than just visiting places – it should be about creating connections, understanding cultures, and making memories that last a lifetime.")}</p>
+              <p className="text-lg text-slate-600 leading-relaxed">{getText('about.story.para2', 'Our team of local experts brings decades of combined experience in hospitality and marine adventures, ensuring every guest experiences the authentic spirit of the Maldives while enjoying the highest standards of safety and comfort.')}</p>
             </div>
             <div className="animate-slide-in-right">
-              <img
+              <Image
                 src="https://readdy.ai/api/search-image?query=Maldivian%20local%20guide%20showing%20tourists%20around%20traditional%20island%20village%2C%20authentic%20cultural%20experience%2C%20friendly%20local%20people%2C%20tropical%20island%20setting%2C%20warm%20hospitality%2C%20community%20tourism&width=600&height=400&seq=about-story-1&orientation=landscape"
                 alt="Our Story"
+                width={600}
+                height={400}
                 className="rounded-lg shadow-lg hover-scale"
               />
             </div>
@@ -225,9 +168,9 @@ export default function About() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-800 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-              {aboutTeamTitle}
+              {getText('about.team.title', 'Meet Our Team')}
             </h2>
-            <p className="text-lg text-slate-600">{aboutTeamSubtitle}</p>
+            <p className="text-lg text-slate-600">{getText('about.team.subtitle', 'Passionate locals dedicated to sharing the beauty of the Maldives')}</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -237,9 +180,11 @@ export default function About() {
                 className="group text-center p-6 rounded-2xl bg-white border border-gray-100 hover:border-teal-200 hover:shadow-xl hover:shadow-teal-100/50 transition-all duration-500 hover:-translate-y-2 cursor-pointer"
               >
                 <div className="relative mb-6">
-                  <img
+                  <Image
                     src={member.image}
                     alt={member.name}
+                    width={192}
+                    height={192}
                     className="w-48 h-48 rounded-full mx-auto object-cover shadow-lg group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -257,9 +202,9 @@ export default function About() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-slate-800 mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-              {aboutValuesTitle}
+              {getText('about.values.title', 'Our Values')}
             </h2>
-            <p className="text-lg text-slate-600">{aboutValuesSubtitle}</p>
+            <p className="text-lg text-slate-600">{getText('about.values.subtitle', 'The principles that guide everything we do')}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -293,20 +238,20 @@ export default function About() {
       >
         <div className="animate-subtle-zoom max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-8" style={{ fontFamily: 'Playfair Display, serif' }}>
-            {aboutPromiseTitle}
+            {getText('about.promise.title', 'Our Promise to You')}
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="group p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-teal-300 hover:shadow-xl hover:shadow-teal-100/50 transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-              <h3 className="text-xl font-semibold mb-4 group-hover:text-teal-300 transition-colors duration-500">{aboutPromiseSustainableTitle}</h3>
-              <p className="text-gray-200 group-hover:text-white transition-colors duration-500">{aboutPromiseSustainableDesc}</p>
+              <h3 className="text-xl font-semibold mb-4 group-hover:text-teal-300 transition-colors duration-500">{getText('about.promise.sustainable.title', 'Sustainable Tourism')}</h3>
+              <p className="text-gray-200 group-hover:text-white transition-colors duration-500">{getText('about.promise.sustainable.desc', "We're committed to responsible tourism that benefits local communities and preserves our pristine marine environment.")}</p>
             </div>
             <div className="group p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-teal-300 hover:shadow-xl hover:shadow-teal-100/50 transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-              <h3 className="text-xl font-semibold mb-4 group-hover:text-teal-300 transition-colors duration-500">{aboutPromiseComfortTitle}</h3>
-              <p className="text-gray-200 group-hover:text-white transition-colors duration-500">{aboutPromiseComfortDesc}</p>
+              <h3 className="text-xl font-semibold mb-4 group-hover:text-teal-300 transition-colors duration-500">{getText('about.promise.comfort.title', 'Comfort & Luxury')}</h3>
+              <p className="text-gray-200 group-hover:text-white transition-colors duration-500">{getText('about.promise.comfort.desc', 'Every detail is carefully planned to ensure your comfort while maintaining the authentic spirit of the Maldives.')}</p>
             </div>
             <div className="group p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-teal-300 hover:shadow-xl hover:shadow-teal-100/50 transition-all duration-500 hover:-translate-y-2 cursor-pointer">
-              <h3 className="text-xl font-semibold mb-4 group-hover:text-teal-300 transition-colors duration-500">{aboutPromiseExperiencesTitle}</h3>
-              <p className="text-gray-200 group-hover:text-white transition-colors duration-500">{aboutPromiseExperiencesDesc}</p>
+              <h3 className="text-xl font-semibold mb-4 group-hover:text-teal-300 transition-colors duration-500">{getText('about.promise.experiences.title', 'Unforgettable Experiences')}</h3>
+              <p className="text-gray-200 group-hover:text-white transition-colors duration-500">{getText('about.promise.experiences.desc', "We create moments that will stay with you long after you leave our beautiful islands.")}</p>
             </div>
           </div>
         </div>
