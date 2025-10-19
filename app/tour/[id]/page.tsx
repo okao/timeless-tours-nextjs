@@ -358,7 +358,7 @@ export default function TourDetail() {
                     type="text"
                     name="firstName"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-slate-800 placeholder-slate-500 bg-white"
                   />
                 </div>
                 <div>
@@ -367,7 +367,7 @@ export default function TourDetail() {
                     type="text"
                     name="lastName"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-slate-800 placeholder-slate-500 bg-white"
                   />
                 </div>
               </div>
@@ -379,7 +379,7 @@ export default function TourDetail() {
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-slate-800 placeholder-slate-500 bg-white"
                   />
                 </div>
                 <div>
@@ -387,7 +387,7 @@ export default function TourDetail() {
                   <input
                     type="tel"
                     name="phone"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-slate-800 placeholder-slate-500 bg-white"
                   />
                 </div>
               </div>
@@ -398,14 +398,14 @@ export default function TourDetail() {
                   <input
                     type="date"
                     name="travelDate"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-slate-800 placeholder-slate-500 bg-white"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">{getText('tour.booking.form.guests', 'Number of Guests')}</label>
                   <select
                     name="guests"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-slate-800 bg-white"
                   >
                     <option value="1">1 {getText('tour.booking.form.guest', 'Guest')}</option>
                     <option value="2">2 {getText('tour.booking.form.guests', 'Guests')}</option>
@@ -421,7 +421,7 @@ export default function TourDetail() {
                 <textarea
                   name="message"
                   rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent text-slate-800 placeholder-slate-500 bg-white"
                   placeholder={getText('tour.booking.form.messagePlaceholder', 'Tell us about your travel preferences, dietary restrictions, or any special requests...')}
                 ></textarea>
               </div>
