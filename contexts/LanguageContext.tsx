@@ -73,7 +73,21 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
         'about.promise.title',
         'about.promise.sustainable.title', 'about.promise.sustainable.desc',
         'about.promise.comfort.title', 'about.promise.comfort.desc',
-        'about.promise.experiences.title', 'about.promise.experiences.desc'
+        'about.promise.experiences.title', 'about.promise.experiences.desc',
+        // Tour detail page keys
+        'tour.notFound.title', 'tour.notFound.back',
+        'tour.overview.title', 'tour.inclusions.title', 'tour.exclusions.title',
+        'tour.itinerary.title', 'tour.itinerary.day', 'tour.gallery.title',
+        'tour.price.perPerson', 'tour.booking.button', 'tour.details.duration',
+        'tour.details.groupSize', 'tour.details.maxPeople', 'tour.details.languages',
+        'tour.details.languageList', 'tour.details.difficulty', 'tour.details.difficultyLevel',
+        'tour.help.title', 'tour.booking.success', 'tour.booking.error',
+        'tour.booking.form.title', 'tour.booking.form.subtitle', 'tour.booking.form.firstName',
+        'tour.booking.form.lastName', 'tour.booking.form.email', 'tour.booking.form.phone',
+        'tour.booking.form.travelers', 'tour.booking.form.travelers.1', 'tour.booking.form.travelers.2',
+        'tour.booking.form.travelers.3', 'tour.booking.form.travelers.4', 'tour.booking.form.travelers.5',
+        'tour.booking.form.date', 'tour.booking.form.message', 'tour.booking.form.messagePlaceholder',
+        'tour.booking.form.maxChars', 'tour.booking.form.submit', 'tour.related.title', 'tour.related.viewDetails'
       ];
 
       const response = await fetch('/api/texts', {
