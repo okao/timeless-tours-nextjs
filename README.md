@@ -76,7 +76,6 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 ### Server Setup (Ubuntu/Debian)
 
 **VPS Details:**
-- IP: `5.223.51.245`
 - Domain: `thetimelesstours.com`
 - Node.js 20 (already installed)
 
@@ -145,9 +144,9 @@ nano .env.local
 
 Add your production configuration:
 ```env
-DATABASE_URL="mysql://timeless_user:your_secure_password@localhost:3306/timeless_tours"
+DATABASE_URL="mysql://username:password@localhost:3306/timeless_tours"
 NEXTAUTH_SECRET="your-production-secret-key"
-NEXTAUTH_URL="https://thetimelesstours.com"
+NEXTAUTH_URL="https://your-domain.com"
 NODE_ENV="production"
 ```
 
@@ -177,16 +176,16 @@ module.exports = {
     name: 'timelesstoursnginx',
     script: 'npm',
     args: 'start',
-    cwd: '/var/www/timelesstoursnginx',
+    cwd: '/var/www/your-app-name',
     instances: 'max',
     exec_mode: 'cluster',
     env: {
       NODE_ENV: 'production',
       PORT: 3000
     },
-    error_file: '/var/log/pm2/timelesstoursnginx-error.log',
-    out_file: '/var/log/pm2/timelesstoursnginx-out.log',
-    log_file: '/var/log/pm2/timelesstoursnginx.log',
+    error_file: '/var/log/pm2/your-app-error.log',
+    out_file: '/var/log/pm2/your-app-out.log',
+    log_file: '/var/log/pm2/your-app.log',
     time: true
   }]
 };
@@ -214,7 +213,7 @@ sudo nano /etc/nginx/sites-available/timelesstoursnextjs
 ```nginx
 server {
     listen 80;
-    server_name thetimelesstours.com;
+    server_name your-domain.com;
 
     # Redirect HTTP to HTTPS
     return 301 https://$server_name$request_uri;
@@ -222,11 +221,11 @@ server {
 
 server {
     listen 443 ssl http2;
-    server_name thetimelesstours.com;
+    server_name your-domain.com;
 
     # SSL Configuration (replace with your SSL certificate paths)
-    ssl_certificate /etc/ssl/certs/thetimelesstours.com.crt;
-    ssl_certificate_key /etc/ssl/private/thetimelesstours.com.key;
+    ssl_certificate /etc/ssl/certs/your-domain.com.crt;
+    ssl_certificate_key /etc/ssl/private/your-domain.com.key;
     
     # SSL Security Settings
     ssl_protocols TLSv1.2 TLSv1.3;
@@ -251,7 +250,7 @@ server {
 
     # Static files caching
     location /_next/static/ {
-        alias /var/www/timeless-tours/.next/static/;
+        alias /var/www/your-app/.next/static/;
         expires 1y;
         add_header Cache-Control "public, immutable";
     }
@@ -303,7 +302,7 @@ sudo systemctl restart nginx
 sudo apt install certbot python3-certbot-nginx -y
 
 # Obtain SSL certificate
-sudo certbot --nginx -d thetimelesstours.com
+sudo certbot --nginx -d your-domain.com
 
 # Test automatic renewal
 sudo certbot renew --dry-run
@@ -325,10 +324,10 @@ sudo ufw enable
 pm2 status
 
 # View logs
-pm2 logs timeless-tours
+pm2 logs your-app-name
 
 # Restart application
-pm2 restart timeless-tours
+pm2 restart your-app-name
 
 # Check Nginx status
 sudo systemctl status nginx
@@ -371,13 +370,13 @@ npx prisma migrate deploy
 
 1. **PM2 not starting**
    ```bash
-   pm2 logs timeless-tours
-   pm2 restart timeless-tours
+   pm2 logs your-app-name
+   pm2 restart your-app-name
    ```
 
 2. **Nginx 502 Bad Gateway**
    - Check if PM2 is running: `pm2 status`
-   - Check application logs: `pm2 logs timeless-tours`
+   - Check application logs: `pm2 logs your-app-name`
 
 3. **Database connection issues**
    - Verify DATABASE_URL in .env.local
