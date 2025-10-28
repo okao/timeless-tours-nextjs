@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
+//just a normal change
+
 const prisma = new PrismaClient();
 
 export async function GET() {
